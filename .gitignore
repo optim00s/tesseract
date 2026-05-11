@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Enviroment files
+.env
+backend/.env
+
+# Node
+node_modules/
+dist/
+
+# Editor
+.vscode/
+.idea/
+
+# Tailwind generated file
+frontend/styles/output.css
+
+# OS
+.DS_Store
+Thumbs.db
+
+tesseract_roadmap.pdf
