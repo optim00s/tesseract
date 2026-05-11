@@ -6,3 +6,5 @@ pydantic
 beautifulsoup4
 requests
 youtube-transcript-api
+pypdf
+python-multipart
