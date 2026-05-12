@@ -23,7 +23,14 @@ app = FastAPI(title="Tesseract Backend")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=[
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+        "http://localhost:5500",
+        "http://127.0.0.1:5500",
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -48,7 +55,7 @@ def healt_check():
 
 # clean spacing using reguler expression
 def clean_text(text: str) -> str:
-    text = re.sub(r"\s+", "", text)
+    text = re.sub(r"\s+", " ", text)
     return text.strip()
 
 # clean html tags for raw text
@@ -96,22 +103,16 @@ def extract_youtube_transcript(url: str) -> str:
     video_id = extract_youtube_video_id(url)
 
     try:
-        transcript_list = YouTubeTranscriptApi.list_transcripts(video_id)
+        ytt_api = YouTubeTranscriptApi()
+        fetched_transcript = ytt_api.fetch(video_id, languages=["en"])
 
-        try:
-            transcript = transcript_list.find_transcript(["en"])
-        except Exception:
-            transcript = transcript_list.find_generated_transcript(["en"])
-        
-        transcript_data = transcript.fetch()
-    
     except Exception as error:
         raise HTTPException(
-            status_code=400, 
-            detail=f"Transcript not aviable or blocked for this video: {str(error)}"
+            status_code=400,
+            detail=f"Transcript not available or blocked for this video: {str(error)}"
         )
 
-    text = "".join(item["text"] for item in transcript_data)
+    text = " ".join(snippet.text for snippet in fetched_transcript)
     return clean_text(text)
 
 # get text from pdf
@@ -223,7 +224,7 @@ async def generate_from_text(request: TextRequest):
 
 @app.post("/api/generate-from-url")
 async def generate_from_url(request: URLRequest):
-    text = clean_text(request.url)
+    text = extract_article_text(request.url)
     prompt = build_flashcard_prompt(text, request.number_of_cards)
     result = await call_openrouter(prompt)
 
