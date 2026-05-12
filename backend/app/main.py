@@ -17,22 +17,18 @@ from app.config import (
     OPENROUTER_URL,
     API_TIMEOUT,
     MAX_INPUT_CHARACTERS,
+    CORS_ORIGINS,
+    CORS_ORIGIN_REGEX,
 )
 
 app = FastAPI(title="Tesseract Backend")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-        "http://localhost:5500",
-        "http://127.0.0.1:5500",
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-    ],
-    allow_credentials=True,
-    allow_methods=["*"],
+    allow_origins=CORS_ORIGINS,
+    allow_origin_regex=CORS_ORIGIN_REGEX,
+    allow_credentials=False,
+    allow_methods=["GET", "POST", "OPTIONS"],
     allow_headers=["*"],
 )
 
