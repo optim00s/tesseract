@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>tesseract</title>
+    <link href="./styles/output.css" rel="stylesheet">
+  </head>
+  <body class="m-0 p-0 bg-slate-700 text-white overflow-x-hidden">
+    <header class="fixed top-0 left-0 right-0 h-16 bg-black/20 backdrop-blur-xl z-50">
+      <nav class="h-full flex items-center justify-between px-9 md:px-9 2xl:px-16">
+        <div class="left-container flex items-center gap-6 md:gap-12 2xl:gap-16">
+          <a href="index.html" class="text-[18px] md:text-[20px]">
+            tesseract
+          </a>
+        </div>
+        <div class="right-container hidden items-center gap-5 sm:flex">
+          <a href="">
+            made by
+            <span class="transition-all duration-200 hover:underline">
+              optim00s
+            </span>
+          </a>
+        </div>
+      </nav>
+    </header>
+    <main class="pt-16 min-h-screen">
+      <div class="mx-auto flex min-h-[calc(100vh-4rem)] max-w-[1800px] flex-col px-4 py-8 sm:px-6 md:px-10 lg:py-10 2xl:px-16">
+        <!-- tab sections -->
+        <div id="tabContainer" class="flex max-w-full items-center overflow-x-auto">
+          <button
+            data-tab="text"
+            class="tab-btn active-tab shrink-0 bg-slate-600 px-5 py-3 text-sm sm:px-7 sm:text-base border-gray-800 border-x-[1px] border-t-[1px] border-b-0 rounded-t-lg"
+          >
+            raw text
+          </button>
+
+          <button
+            data-tab="url"
+            class="tab-btn shrink-0 bg-slate-600 px-5 py-3 text-sm sm:px-7 sm:text-base border-gray-800 border-x-[1px] border-t-[1px] border-b-0 rounded-t-lg"
+          >
+            url
+          </button>
+
+          <button
+            data-tab="youtube"
+            class="tab-btn shrink-0 bg-slate-600 px-5 py-3 text-sm sm:px-7 sm:text-base border-gray-800 border-x-[1px] border-t-[1px] border-b-0 rounded-t-lg"
+          >
+            youtube
+          </button>
+
+          <button
+            data-tab="pdf"
+            class="tab-btn shrink-0 bg-slate-600 px-5 py-3 text-sm sm:px-7 sm:text-base border-gray-800 border-x-[1px] border-t-[1px] border-b-0 rounded-t-lg"
+          >
+            pdf
+          </button>
+        </div>
+        <!-- form sections -->
+        <div class="bg-slate-600 w-full flex-1 flex flex-col gap-6 rounded-b-lg rounded-tr-lg p-4 sm:p-6 lg:flex-row lg:gap-12 lg:p-8">
+          <!-- form container -->
+          <div class="w-full flex flex-col lg:w-[580px]">
+            <!-- input container -->
+            <div id="inputContainer" class="flex flex-col gap-4"></div>
+            <!-- button -->
+            <div>
+              <button
+                id="generateBtn"
+                class="mt-5 w-full rounded-lg border border-slate-400 bg-slate-800 px-6 py-3 font-medium text-white transition-all duration-200 hover:bg-slate-900 hover:border-white active:scale-95 sm:w-auto"
+              >
+                Generate
+              </button>
+            </div>
+          </div>
+          <!-- output container -->
+          <div id="outputContainer" class="min-h-[420px] overflow-y-auto flex-1 rounded-lg bg-slate-700 p-4 sm:p-5 lg:min-h-0">
+            <!-- placeholder -->
+            <div class="flex h-full min-h-[380px] items-center justify-center text-center text-slate-200">
+              Your flashcards and summary will appear here
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script type="module" src="./src/generate.js"></script>
+  </body>
+</html>
